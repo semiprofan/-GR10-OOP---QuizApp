@@ -57,16 +57,91 @@ public:
 };
 
 // =========================================================================
-// PHẦN 3: LẠI - LOGIC & STL (TRỐNG)
+// PHẦN 3: LAi - LOGIC & STL (TRỐNG)
 // =========================================================================
 class QuizLogic {
+private:
+    vector<Question> questions;
+    vector<char> userAnswers; // Lưu đáp án thí sinh chọn (' ' nếu bỏ qua)
+
 public:
+    QuizLogic(const vector<Question>& qList) : questions(qList) {
+        userAnswers.resize(questions.size(), ' '); // Khởi tạo danh sách đáp án trống
+    }
+
     void processQuiz() {
-        cout << "[Note cho Lai: Code vong lap hien thi cau hoi, nhan dap an o day]\n";
-        cout << "[Note cho Lai: Nho code them logic an 'S' de Skip va chuc nang Modify nhe]\n";
-        cout << "(Gia lap dang thi... Nhan Enter de nop bai)\n";
-        cin.ignore();
-        cin.get();
+        if (questions.empty()) {
+            cout << "Khong co cau hoi nao trong he thong!\n";
+            return;
+        }
+
+        int totalQuestions = questions.size();
+        int current = 0;
+
+        while (true) {
+            cout << "\n=== CAU HOI " << (current + 1) << "/" << totalQuestions << " ===";
+            questions[current].display();
+
+            if (userAnswers[current] != ' ') {
+                cout << "[Dap an hien tai cua ban: " << userAnswers[current] << "]\n";
+            } else {
+                cout << "[Chua tra loi]\n";
+            }
+
+            cout << "\n--> Chon (A/B/C/D), 'S' de Skip (Bo qua), 'M' de Sua (Modify), 'Q' de Nop bai: ";
+            char choice;
+            cin >> choice;
+            choice = toupper(choice);
+
+            if (choice == 'Q') {
+                cout << "\nBan co chac chan muon nop bai? (Y/N): ";
+                char confirm;
+                cin >> confirm;
+                if (toupper(confirm) == 'Y') break;
+                continue;
+            }
+
+            if (choice == 'S') {
+                cout << "-> Da bo qua cau hoi nay.\n";
+                current = (current + 1) % totalQuestions;
+            } 
+            else if (choice == 'M') {
+                cout << "Nhap so cau hoi ban muon chuyen toi de sua (1 - " << totalQuestions << "): ";
+                int target;
+                cin >> target;
+                if (target >= 1 && target <= totalQuestions) {
+                    current = target - 1;
+                } else {
+                    cout << "So cau hoi khong hop le!\n";
+                }
+            } 
+            else if (choice >= 'A' && choice <= 'D') {
+                userAnswers[current] = choice;
+                cout << "-> Da luu dap an: " << choice << endl;
+                current = (current + 1) % totalQuestions;
+            } 
+            else {
+                cout << "Lua chon khong hop le, vui long nhap lai!\n";
+            }
+        }
+
+        calculateResult();
+    }
+
+    void calculateResult() const {
+        int score = 0;
+        cout << "           KET QUA BAI THI              \n";
+        
+        for (size_t i = 0; i < questions.size(); ++i) {
+            bool isCorrect = questions[i].checkAnswer(userAnswers[i]);
+            if (isCorrect) score++;
+
+            cout << "Cau " << (i + 1) << ": Ban chon [" << (userAnswers[i] == ' ' ? '-' : userAnswers[i]) << "] | ";
+            cout << "Dap an dung: [" << questions[i].getCorrectAnswer() << "] -> ";
+            cout << (isCorrect ? "DUNG" : "SAI") << endl;
+        }
+
+        cout << "\nTong diem: " << score << "/" << questions.size() << endl;
     }
 };
 
