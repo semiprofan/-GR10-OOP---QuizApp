@@ -4,9 +4,7 @@
 // Nhiem vu: Soan thao du lieu; Xay dung Class FileManager doc file; 
 //           Xay dung Class Candidate xu ly thong tin thi sinh.
 // =========================================================================
-#ifndef DATA_IO_H
-#define DATA_IO_H
-
+#pragma once
 #include <iostream>
 #include <fstream>
 #include <string>
