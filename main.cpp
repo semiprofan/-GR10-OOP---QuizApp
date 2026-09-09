@@ -41,21 +41,69 @@ public:
 // PHẦN 2: NHỰT - DATA & I/O (TRỐNG)
 // =========================================================================
 class Candidate {
+private:
+    string name;
+    string mssv;
+
 public:
+    Candidate() : name(""), mssv("") {}
+
     void inputInfo() {
         cout << "\n--- NHAP THONG TIN THI SINH ---\n";
-        cout << "[Note cho Nhut: Code chuc nang nhap Ten, MSSV o day nhe!]\n";
-        // cin >> name; ...
+        cout << "Nhap ho va ten: ";
+        getline(cin, name);
+        
+        cout << "Nhap ma so sinh vien (MSSV): ";
+        getline(cin, mssv);
+        cout << "-------------------------------\n";
     }
+
+    string getName() const { return name; }
+    string getMssv() const { return mssv; }
 };
 
 class FileManager {
 public:
-    void loadData() {
-        cout << "[Note cho Nhut: Code doc file questions.txt vao STL vector o day nhe!]\n";
+    static vector<Question> loadData(const string& filePath = "questions.txt") {
+        vector<Question> questionList;
+        ifstream fileInput(filePath);
+
+        if (!fileInput.is_open()) {
+            cout << "[Loi] Khong the mo file du lieu: " << filePath << endl;
+            return questionList;
+        }
+
+        int currentId = 1;
+
+        while (!fileInput.eof()) {
+            Question q;
+            q.id = currentId;
+            getline(fileInput, q.questionText);
+    
+            if (q.questionText.empty()) break;
+
+            getline(fileInput, q.optionA);
+            getline(fileInput, q.optionB);
+            getline(fileInput, q.optionC);
+            getline(fileInput, q.optionD);
+
+            string ans;
+            getline(fileInput, ans);
+            if (!ans.empty()) {
+                q.correctAnswer = ans[0];
+            }
+
+            string blankLine;
+            getline(fileInput, blankLine);
+
+            questionList.push_back(q);
+            currentId++;
+        }
+
+        fileInput.close();
+        return questionList;
     }
 };
-
 // =========================================================================
 // PHẦN 3: LẠI - LOGIC & STL (TRỐNG)
 // =========================================================================
