@@ -8,11 +8,13 @@
 #include "DataIO.h"
 #include "UI_Evaluator.h"
 #include "QuestionLogic.h"
+#include "windows.h"
 
 using namespace std;
 using namespace std::chrono;
 
 int main() {
+    SetConsoleOutputCP(65001); 
     int choice;
     Timer examTimer;
     Candidate currentCandidate;
