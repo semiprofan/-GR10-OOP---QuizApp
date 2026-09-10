@@ -1,0 +1,69 @@
+Câu 1: Trong C++, từ khóa nào được sử dụng để khai báo một lớp?
+A. struct
+B. class
+C. object
+D. type
+B
+
+Câu 2: Tính đóng gói (Encapsulation) trong OOP có ý nghĩa gì?
+A. Kế thừa các thuộc tính từ lớp khác
+B. Ẩn giấu thông tin và chỉ cho phép truy cập qua các phương thức
+C. Nạp chồng phương thức
+D. Cho phép một đối tượng có nhiều hình thái
+B
+
+Câu 3: Trong C++, container STL nào lưu trữ dữ liệu dưới dạng cặp key-value?
+A. std::vector
+B. std::list
+C. std::map
+D. std::set
+C
+
+Câu 4: Đặc điểm nào sau đây KHÔNG phải là một trong 4 tính chất cơ bản của OOP?
+A. Tính trừu tượng (Abstraction)
+B. Tính đa hình (Polymorphism)
+C. Tính tuần tự (Sequential)
+D. Tính kế thừa (Inheritance)
+C
+
+Câu 5: Phương thức khởi tạo (Constructor) có đặc điểm gì?
+A. Có kiểu trả về là void
+B. Tên trùng với tên lớp và không có kiểu trả về
+C. Được gọi tự động khi đối tượng bị hủy
+D. Không thể nhận tham số
+B
+
+Câu 6: Để đọc hoặc ghi file trong C++, chúng ta thường sử dụng thư viện nào?
+A. <iostream>
+B. <vector>
+C. <fstream>
+D. <string>
+C
+
+Câu 7: Tính đa hình (Polymorphism) trong C++ thường được thể hiện thông qua?
+A. Từ khóa static
+B. Từ khóa virtual và override
+C. Từ khóa const
+D. Từ khóa private
+B
+
+Câu 8: Lệnh "#pragma once" có tác dụng gì trong file header (.h)?
+A. Khai báo một thư viện mới
+B. Ngăn chặn lỗi include một file nhiều lần
+C. Định nghĩa một class
+D. Tăng tốc độ chạy của chương trình
+B
+
+Câu 9: Lớp con (Derived class) sẽ KHÔNG được tự động kế thừa thành phần nào từ lớp cha?
+A. Thuộc tính public
+B. Thuộc tính protected
+C. Phương thức public
+D. Phương thức khởi tạo (Constructor)
+D
+
+Câu 10: Trong C++, vector khác mảng (array) truyền thống ở điểm nào?
+A. Vector có thể thay đổi kích thước động
+B. Vector lưu trữ dữ liệu trên Stack
+C. Vector không thể chứa kiểu dữ liệu nguyên thủy
+D. Vector truy xuất phần tử chậm hơn mảng rất nhiều lần
+A

@@ -4,48 +4,85 @@
 // Nhiem vu: Xay dung Class Question bang STL container; Xu ly logic luu trang thai;
 //           Xu ly chuc nang Bo qua (skip) va Sua dap an (modify).
 // =========================================================================
-#ifndef QUESTION_LOGIC_H
-#define QUESTION_LOGIC_H
-
+#pragma once
+#include "CommonTypes.h"
+#include "Question.h"
+#include "UI_Evaluator.h"
 #include <iostream>
 #include <vector>
-#include <string>
+#include <map>
 #include <cctype>
 
 using namespace std;
 
-class Question {
+class QuizLogic {
 private:
-    string questionText;
-    vector<string> options;
-    char correctAnswer;
+    vector<Question> questions;
+    map<int, UserAnswer> userAnswers;
 
 public:
-    // Constructor mac dinh
-    Question() : correctAnswer(' ') {}
+    // Ham nap danh sach cau hoi vao he thong thi
+    void setQuestions(const vector<Question>& qList) {
+        questions = qList;
+    }
 
-    // Constructor khoi tao day du thông tin cau hoi
-    Question(string text, vector<string> opts, char correctAns) 
-        : questionText(text), options(opts), correctAnswer(toupper(correctAns)) {}
+    // Ham tra ve danh sach cau hoi dang co (Dung cho viec cham diem)
+    const vector<Question>& getQuestions() const { return questions; }
+    
+    // Ham tra ve map chua toan bo dap an nguoi dung da luu (Dung cho viec cham diem)
+    const map<int, UserAnswer>& getUserAnswers() const { return userAnswers; }
 
-    // Hien thi noi dung cau hoi va cac lua chon
-    void display() const {
-        cout << "\n----------------------------------------\n";
-        cout << questionText << endl;
-        for (const auto& option : options) {
-            cout << option << endl;
+    // Ham chua vong lap xu ly chinh cua bai thi (hien thi tung cau, nhan phim, bo qua, sua)
+    void processQuiz() {
+        if (questions.empty()) {
+            cout << "Khong co cau hoi nao trong he thong!\n";
+            return;
+        }
+
+        int totalQuestions = questions.size();
+        int current = 0;
+
+        while (true) {
+            int currentId = questions[current].getId();
+            
+            // Goi giao dien hien thi tu class UI_Evaluator
+            UI_Evaluator::renderQuestion(questions[current], current, totalQuestions, userAnswers[currentId]);
+
+            cout << "--> Nhap lua chon cua ban: ";
+            char choice;
+            cin >> choice;
+            choice = toupper(choice);
+
+            if (choice == 'Q') {
+                cout << "\nBan co chac chan muon nop bai? (Y/N): ";
+                char confirm;
+                cin >> confirm;
+                if (toupper(confirm) == 'Y') break;
+                continue;
+            }
+
+            if (choice == 'S') {
+                userAnswers[currentId].state = QuestionState::SKIPPED;
+                current = (current + 1) % totalQuestions;
+            } 
+            else if (choice == 'M') {
+                cout << "Nhap so thu tu cau hoi ban muon sua (1 - " << totalQuestions << "): ";
+                int target;
+                cin >> target;
+                if (target >= 1 && target <= totalQuestions) {
+                    current = target - 1;
+                } else {
+                    cout << "So thu tu khong hop le!\n";
+                }
+            } 
+            else if (choice >= 'A' && choice <= 'D') {
+                userAnswers[currentId].selectedOption = choice;
+                userAnswers[currentId].state = QuestionState::ANSWERED;
+                current = (current + 1) % totalQuestions;
+            } 
+            else {
+                cout << "Lua chon khong hop le, vui long nhap lai!\n";
+            }
         }
     }
-
-    // Kiem tra dap an nguoi dung chon co dung khong
-    bool checkAnswer(char ans) const {
-        return toupper(ans) == correctAnswer;
-    }
-
-    // Lay dap an dung
-    char getCorrectAnswer() const {
-        return correctAnswer;
-    }
 };
-
-#endif
