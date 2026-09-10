@@ -25,9 +25,10 @@ public:
     // Ham yeu cau nguoi dung nhap Ten va MSSV tu ban phim
     void inputInfo() {
         cout << "\n--- NHAP THONG TIN THI SINH ---\n";
+        cin.ignore(10000, '\n');
         cout << "Nhap ho va ten: ";
         getline(cin, name);
-        
+        cout << "-------------------------------\n";
         cout << "Nhap ma so sinh vien (MSSV): ";
         getline(cin, mssv);
         cout << "-------------------------------\n";

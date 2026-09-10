@@ -1,6 +1,7 @@
 // =========================================================================
 // HÀM MAIN: KHÁNH
 // =========================================================================
+#include "windows.h"
 #include <iostream>
 #include "CommonTypes.h"
 #include "Question.h"
@@ -8,7 +9,7 @@
 #include "DataIO.h"
 #include "UI_Evaluator.h"
 #include "QuestionLogic.h"
-#include "windows.h"
+
 
 using namespace std;
 using namespace std::chrono;
