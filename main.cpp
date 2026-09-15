@@ -73,8 +73,7 @@ int main() {
                 if (!isExamDone) {
                     cout << "Thi sinh chua hoan thanh bai thi!\n";
                 } else {
-                    UI_Evaluator::printResult(quizSystem.getQuestions(), quizSystem.getUserAnswers(), examTimer);
-                }
+                    UI_Evaluator::printResult(quizSystem.getQuestions(), quizSystem.getUserAnswers(), examTimer, currentCandidate.getName(), currentCandidate.getMssv());                }
                 break;
                 
             case 0:

@@ -64,7 +64,7 @@ public:
     }
 
     // 4. Ham tinh tong diem, so sanh dap an va in ra bang tong ket toan bo qua trinh thi
-    static void printResult(const vector<Question>& bank, const map<int, UserAnswer>& userAnswers, Timer& examTimer) {
+    static void printResult(const vector<Question>& bank, const map<int, UserAnswer>& userAnswers, Timer& examTimer, const string& studentName, const string& studentId) {
         clearScreen();
         int score = 0;
         int skippedCount = 0;
@@ -80,7 +80,7 @@ public:
 
             cout << "Cau " << i + 1 << " (ID " << q.getId() << "): ";
             if (it != userAnswers.end() && it->second.state == QuestionState::ANSWERED) {
-                char userAns = it->second.selectedOption; // Su dung bien struct dung kieu
+                char userAns = it->second.selectedOption; 
                 if (userAns == q.getCorrectAnswer()) {
                     score++; 
                     cout << COLOR_GREEN << "[DUNG] - Ban chon: " << userAns << COLOR_RESET << "\n";
@@ -110,6 +110,10 @@ public:
         cout << "--------------------------------------------------\n";
         cout << " DIEM SO TONG KET: " << COLOR_GREEN << fixed << setprecision(2)
             << finalGrade << " / 10.0" << COLOR_RESET << "\n";
+            
+        cout << "--------------------------------------------------\n";
+        cout << COLOR_YELLOW << " Ho va ten thi sinh : " << COLOR_RESET << studentName << "\n";
+        cout << COLOR_YELLOW << " Ma so sinh vien    : " << COLOR_RESET << studentId << "\n";
         cout << COLOR_CYAN << "==================================================\n" << COLOR_RESET;
     }
 };
