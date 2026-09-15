@@ -19,6 +19,8 @@ protected:
 public:
     Person() : name("") {}
     
+    virtual ~Person() = default;
+    
     string getName() const { return name; }
 
     virtual void displayProfile() const {
