@@ -24,7 +24,6 @@ int main() {
     bool isInfoEntered = false;
     bool isExamDone = false;
 
-    // Tu dong nap du lieu truoc khi thi
     vector<Question> bank = FileManager::loadData();
     if (!bank.empty()) {
         quizSystem.setQuestions(bank);

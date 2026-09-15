@@ -13,32 +13,45 @@
 
 using namespace std; 
 
-class Candidate {
-private:
-    string name;
-    string mssv;
-
+class Person {
+protected: 
+    string name; 
 public:
-    // Constructor khoi tao thong tin thi sinh mac dinh la rong
-    Candidate() : name(""), mssv("") {}
+    Person() : name("") {}
+    
+    string getName() const { return name; }
 
-    // Ham yeu cau nguoi dung nhap Ten va MSSV tu ban phim
+    virtual void displayProfile() const {
+        cout << "Ho va ten: " << name << "\n";
+    }
+};
+
+class Candidate : public Person {
+private:
+    string mssv;
+public:
+    Candidate() : mssv("") {}
+    
+    string getMssv() const { return mssv; }
+
     void inputInfo() {
         cout << "\n--- NHAP THONG TIN THI SINH ---\n";
-        cin.ignore(10000, '\n');
+        
+        cin.ignore(10000, '\n'); 
+        
         cout << "Nhap ho va ten: ";
-        getline(cin, name);
-        cout << "-------------------------------\n";
+        
+        getline(cin, name); 
+        
         cout << "Nhap ma so sinh vien (MSSV): ";
         getline(cin, mssv);
+        
         cout << "-------------------------------\n";
     }
-
-    // Ham lay ten cua thi sinh
-    string getName() const { return name; }
-    
-    // Ham lay MSSV cua thi sinh
-    string getMssv() const { return mssv; }
+    void displayProfile() const override {
+        Person::displayProfile();
+        cout << "MSSV: " << mssv << "\n";
+    }
 };
 
 class FileManager {
